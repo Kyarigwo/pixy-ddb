@@ -1,4 +1,4 @@
-name:                pico-ddb
+name:                pixy-ddb
 version:             0.1.0.0
 github:              githubuser/pico-ddb
 license:             BSD3
@@ -19,9 +19,58 @@ extra-source-files:
 # common to point users to the README.md file.
 description:         Please see the README on Github at <https://github.com/githubuser/pico-ddb#readme>
 
+# Sparkly magical haskell transform! 💫
+default-extensions:
+  - BangPatterns
+  - BinaryLiterals
+  - ConstraintKinds
+  - DataKinds
+  - DefaultSignatures
+  - DeriveDataTypeable
+  - DeriveFoldable
+  - DeriveFunctor
+  - DeriveGeneric
+  - DeriveTraversable
+  - DoAndIfThenElse
+  - DuplicateRecordFields
+  - EmptyDataDecls
+  - ExistentialQuantification
+  - FlexibleContexts
+  - FlexibleInstances
+  - FunctionalDependencies
+  - GADTs
+  - GeneralizedNewtypeDeriving
+  - InstanceSigs
+  - KindSignatures
+  - LambdaCase
+  - MultiParamTypeClasses
+  - MultiWayIf
+  - NamedFieldPuns
+  - NoFieldSelectors
+  - NoImplicitPrelude
+  - OverloadedStrings
+  - OverloadedLabels
+  - OverloadedRecordDot
+  - PartialTypeSignatures
+  - PatternGuards
+  - PolyKinds
+  - RankNTypes
+  - RecordWildCards
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - TupleSections
+  - TypeFamilies
+  - TypeSynonymInstances
+  - ViewPatterns
+  - ImportQualifiedPost
+
 dependencies:
 - base >= 4.11 && < 10
-- rio >= 0.1.12.0
+- relude
+- fmt
+- validation
+- lens
+- containers
 
 ghc-options:
 - -Wall
@@ -36,11 +85,11 @@ library:
   source-dirs: src
 
 executables:
-  pico-ddb-exe:
+  pixy:
     main:                Main.hs
     source-dirs:         app
     dependencies:
-    - pico-ddb
+    - pixy-ddb
     - optparse-simple
 
     ghc-options:
@@ -49,11 +98,11 @@ executables:
     - -with-rtsopts=-N
 
 tests:
-  pico-ddb-test:
+  pixy-test:
     main:                Spec.hs
     source-dirs:         test
     dependencies:
-    - pico-ddb
+    - pixy-ddb
     - hspec
 
     ghc-options:
