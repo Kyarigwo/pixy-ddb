@@ -1,32 +1,27 @@
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE TemplateHaskell #-}
 module Main (main) where
 
-import Import
-import Run
-import RIO.Process
-import Options.Applicative.Simple
-import qualified Paths_pico_ddb
+import Relude
+
+import Pixy.Data
+import Pixy
+import Fmt((+|), (|+))
+import qualified Fmt
+
+{- [markdown]
+# About DataLog
+
+
+-}
 
 main :: IO ()
-main = do
-  (options, ()) <- simpleOptions
-    $(simpleVersion Paths_pico_ddb.version)
-    "Header for command line arguments"
-    "Program description, also for command line arguments"
-    (Options
-       <$> switch ( long "verbose"
-                 <> short 'v'
-                 <> help "Verbose output?"
-                  )
-    )
-    empty
-  lo <- logOptionsHandle stderr (optionsVerbose options)
-  pc <- mkDefaultProcessContext
-  withLogFunc lo $ \lf ->
-    let app = App
-          { appLogFunc = lf
-          , appProcessContext = pc
-          , appOptions = options
-          }
-     in runRIO app run
+main =
+  do
+    let scriptText = ""+|script|+""
+    Fmt.fmtLn  scriptText
+    case evalScript script of
+      Left errs -> traverse_
+        (\e -> Fmt.fmtLn (""+|e|+"")) errs
+      Right db -> Fmt.fmtLn (""+|db|+"")
+
+-- definitions
+

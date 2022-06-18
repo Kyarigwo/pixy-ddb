@@ -1,10 +1,30 @@
-# pico-ddb
+# pixy-ddb
 
-## Execute  
+- Add type safety?
+- Add validation/compilation phase.
+- Measure proformance.
+- Improve proformance.
+- Add comparison predicates.
+- Add negative atoms.
+- Add aggregate functions.
+- Add uninterprated functions.
+- Store database to file?
 
-* Run `stack exec -- pico-ddb-exe` to see "We're inside the application!"
-* With `stack exec -- pico-ddb-exe --verbose` you will see the same message, with more logging.
+## Application
 
-## Run tests
+As an example/development template, use a basic chat application.  Will update
+definition as we change it.
 
-`stack test`
+- event:: Predicate [(event, Event), (at, Datetime)]
+- chat:: Predicate [(chat, Chat), (name, Chatname)]
+- participant:: Predicate [(participant, Participant), (name, ParticipantName)]
+- enter: Predicate [(event, Event), (chat, Chat), (participant, Participant)]
+- message: Predicate [(event, Event),
+                    (chat, Chat), (participant, Participant),
+                    (message, Message)]
+- exit: Predicate [(event, Event), (chat, Chat), (participant, Participant)]
+
+Participants in chat "This chat":
+
+- query(name) <== chat(chat, name = "This chat") /\ enter(chat, participant)
+                  /\ participant(participant, name).
